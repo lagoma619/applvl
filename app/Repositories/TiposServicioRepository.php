@@ -7,13 +7,13 @@ use App\Models\TiposServicio;
 
 class TiposServicioRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $tiposServicios = TiposServicio::all();
         return $tiposServicios;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $tiposServicios = TiposServicio::where("cod_tipos_servicio", "=", $request->cod_tipos_servicio) 
         -> get();
@@ -21,7 +21,7 @@ class TiposServicioRepository {
         return $tiposServicios;
     }
 
-    public function save(TiposServicio $tiposServicio) {
+    public function registrar(TiposServicio $tiposServicio) {
 
         $tiposServicio -> save(); 
         return "Registro exitoso";

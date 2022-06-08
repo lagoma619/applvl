@@ -10,20 +10,20 @@ use App\Models\Domicilio;
 
 class DomicilioController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $domicilioService = new DomicilioService();
-        return $domicilioService -> getAll();
+        return $domicilioService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $domicilioService = new DomicilioService();
-        return $domicilioService -> getFindById($request);
+        return $domicilioService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $domicilioService = new DomicilioService();
-        return response() -> json($domicilioService -> save($request));
+        return response() -> json($domicilioService -> registrar($request));
     }
 }

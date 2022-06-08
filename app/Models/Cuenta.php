@@ -17,6 +17,7 @@ class Cuenta extends Model
     notas
     cod_persona
     cod_tipos_cuenta
+    cod_cliente
     
 */
 

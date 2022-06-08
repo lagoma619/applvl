@@ -10,21 +10,21 @@ use App\Models\TiposVehiculo;
 
 class TiposVehiculoController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $tiposVehiculoService = new TiposVehiculoService();
-        return $tiposVehiculoService -> getAll();
+        return $tiposVehiculoService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $tiposVehiculoService = new TiposVehiculoService();
-        return $tiposVehiculoService -> getFindById($request);
+        return $tiposVehiculoService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $tiposVehiculoService = new TiposVehiculoService();
-        return response() -> json($tiposVehiculoService -> save($request));
+        return response() -> json($tiposVehiculoService -> registrar($request));
     }
 }
 

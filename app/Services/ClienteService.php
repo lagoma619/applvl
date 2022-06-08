@@ -5,23 +5,30 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\ClienteRepository;
 use App\Models\Cliente;
+use App\Utilidades\Constantes;
+use App\Utilidades\Utilidades;
 
 class ClienteService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $cliente = new ClienteRepository();
-        return $cliente -> getAll();
+        return $cliente -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $cliente = new ClienteRepository();
-        return $cliente -> getFindById($request);
+        return $cliente -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function buscarPorNombre(Request $request) {
+        
+        $cliente = new ClienteRepository();
+        return $cliente -> buscarPorNombre($request);
+    }
+    public function registrar(Request $request) {
 
         $cliente = new Cliente();
         $cliente -> cod_cliente = $request -> cod_cliente;
@@ -36,16 +43,19 @@ class ClienteService {
         $cliente -> pagina_web = $request -> pagina_web;
         $cliente -> contacto = $request -> contacto;
         $cliente -> notas = $request -> notas;
-        $cliente -> estado = $request -> estado;
-        $cliente -> cod_cuenta = $request -> cod_cuenta;
+        $cliente -> estado = Constantes::HABILITADO;
         
         $mensaje = $this -> validateData($cliente);
-
+        
+        $utilidades = new Utilidades();
+        
         if (empty($mensaje)) {
             $clienteRepository = new ClienteRepository();
-            return $clienteRepository -> save($cliente);
+
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $clienteRepository -> registrar($cliente));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

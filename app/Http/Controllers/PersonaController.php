@@ -10,21 +10,21 @@ use App\Models\Persona;
 
 class PersonaController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $personaService = new PersonaService();
-        return $personaService -> getAll();
+        return $personaService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $personaService = new PersonaService();
-        return $personaService -> getFindById($request);
+        return $personaService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $personaService = new PersonaService();
-        return response() -> json($personaService -> save($request));
+        return response() -> json($personaService -> registrar($request));
     }
 }
 

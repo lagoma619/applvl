@@ -7,13 +7,13 @@ use App\Models\Area;
 
 class AreaRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $areas = Area::all();
         return $areas;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $areas = Area::where("cod_area", "=", $request->cod_area) 
         -> get();
@@ -21,9 +21,9 @@ class AreaRepository {
         return $areas;
     }
 
-    public function save(Area $area) {
+    public function registrar(Area $area) {
 
-        $area -> save(); 
+        $area -> registrar(); 
         return "Registro exitoso";
     }
 

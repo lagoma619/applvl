@@ -24,7 +24,7 @@ class Cliente extends Model
     contacto
     notas
     estado
-    cod_cuenta
+    
     
 */
 

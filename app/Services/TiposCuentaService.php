@@ -5,23 +5,24 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\TiposCuentaRepository;
 use App\Models\TiposCuenta;
+use App\Utilidades\Utilidades;
 
 class TiposCuentaService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $tiposCuenta = new TiposCuentaRepository();
-        return $tiposCuenta -> getAll();
+        return $tiposCuenta -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $tiposCuenta = new TiposCuentaRepository();
-        return $tiposCuenta -> getFindById($request);
+        return $tiposCuenta -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $tiposCuenta = new TiposCuenta();
         $tiposCuenta -> cod_tipos_cuenta = $request -> cod_tipos_cuenta;
@@ -29,12 +30,16 @@ class TiposCuentaService {
         $tiposCuenta -> cod_descripcion = $request -> cod_descripcion;
         
         $mensaje = $this -> validateData($tiposCuenta);
+        
+        $utilidades = new Utilidades();
 
         if (empty($mensaje)) {
             $tiposCuentaRepository = new TiposCuentaRepository();
-            return $tiposCuentaRepository -> save($tiposCuenta);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $tiposCuentaRepository -> registrar($tiposCuenta));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

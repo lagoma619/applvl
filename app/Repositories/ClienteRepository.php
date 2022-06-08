@@ -7,13 +7,13 @@ use App\Models\Cliente;
 
 class ClienteRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $clientes = Cliente::all();
         return $clientes;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $clientes = Cliente::where("cod_cliente", "=", $request->cod_cliente) 
         -> get();
@@ -21,7 +21,15 @@ class ClienteRepository {
         return $clientes;
     }
 
-    public function save(Cliente $cliente) {
+    public function buscarPorNombre(Request $request) {
+        
+        $clientes = Cliente::where("nombre", "=", $request->nombre) 
+        -> get();
+
+        return $clientes;
+    }
+
+    public function registrar(Cliente $cliente) {
 
         $cliente -> save(); 
         return "Registro exitoso";

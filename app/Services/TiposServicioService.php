@@ -5,23 +5,24 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\TiposServicioRepository;
 use App\Models\TiposServicio;
+use App\Utilidades\Utilidades;
 
 class TiposServicioService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $tiposServicio = new TiposServicioRepository();
-        return $tiposServicio -> getAll();
+        return $tiposServicio -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $tiposServicio = new TiposServicioRepository();
-        return $tiposServicio -> getFindById($request);
+        return $tiposServicio -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $tiposServicio = new TiposServicio();
         $tiposServicio -> cod_tipos_servicio = $request -> cod_tipos_servicio;
@@ -30,11 +31,15 @@ class TiposServicioService {
         
         $mensaje = $this -> validateData($tiposServicio);
 
+        $utilidades = new Utilidades();
+
         if (empty($mensaje)) {
             $tiposServicioRepository = new TiposServicioRepository();
-            return $tiposServicioRepository -> save($tiposServicio);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $tiposServicioRepository -> registrar($tiposServicio));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

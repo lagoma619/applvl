@@ -10,28 +10,30 @@ use App\Models\Cuenta;
 
 class CuentaController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $cuentaService = new CuentaService();
-        return $cuentaService -> getAll();
+        return $cuentaService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $cuentaService = new CuentaService();
-        return $cuentaService -> getFindById($request);
+        return $cuentaService -> buscarPorCodigo($request);
     }
 
-    public function getFindByCodeAndPassword(Request $request) {
+    public function buscarPorCodigoYContrasena(Request $request) {
         
         $cuentaService = new CuentaService();
-        return $cuentaService -> getFindByCodeAndPassword($request);
+        
+        return response() -> json([
+            'data' => $cuentaService -> buscarPorCodigoYContrasena($request)]);
 
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $cuentaService = new CuentaService();
-        return response() -> json($cuentaService -> save($request));
+        return response() -> json($cuentaService -> registrar($request));
     }
 }
 

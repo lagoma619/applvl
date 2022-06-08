@@ -10,21 +10,21 @@ use App\Models\TiposServicio;
 
 class TiposServicioController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $tiposServicioService = new TiposServicioService();
-        return $tiposServicioService -> getAll();
+        return $tiposServicioService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $tiposServicioService = new TiposServicioService();
-        return $tiposServicioService -> getFindById($request);
+        return $tiposServicioService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $tiposServicioService = new TiposServicioService();
-        return response() -> json($tiposServicioService -> save($request));
+        return response() -> json($tiposServicioService -> registrar($request));
     }
 }
 

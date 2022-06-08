@@ -7,13 +7,13 @@ use App\Models\Domicilio;
 
 class DomicilioRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $domicilios = Domicilio::all();
         return $domicilios;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $domicilios = Domicilio::where("cod_domicilio", "=", $request->cod_domicilio) 
         -> get();
@@ -21,7 +21,7 @@ class DomicilioRepository {
         return $domicilios;
     }
 
-    public function save(Domicilio $domicilio) {
+    public function registrar(Domicilio $domicilio) {
 
         $domicilio -> save(); 
         return "Registro exitoso";

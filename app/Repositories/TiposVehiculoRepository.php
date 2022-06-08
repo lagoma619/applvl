@@ -7,13 +7,13 @@ use App\Models\TiposVehiculo;
 
 class TiposVehiculoRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $tiposVehiculos = TiposVehiculo::all();
         return $tiposVehiculos;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $tiposVehiculos = TiposVehiculo::where("cod_tipos_vehiculo", "=", $request->cod_tipos_vehiculo) 
         -> get();
@@ -21,7 +21,7 @@ class TiposVehiculoRepository {
         return $tiposVehiculos;
     }
 
-    public function save(TiposVehiculo $tiposVehiculo) {
+    public function registrar(TiposVehiculo $tiposVehiculo) {
 
         $tiposVehiculo -> save(); 
         return "Registro exitoso";

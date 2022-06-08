@@ -10,21 +10,21 @@ use App\Models\TiposCuenta;
 
 class TiposCuentaController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $tiposCuentaService = new TiposCuentaService();
-        return $tiposCuentaService -> getAll();
+        return $tiposCuentaService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $tiposCuentaService = new TiposCuentaService();
-        return $tiposCuentaService -> getFindById($request);
+        return $tiposCuentaService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $tiposCuentaService = new TiposCuentaService();
-        return response() -> json($tiposCuentaService -> save($request));
+        return response() -> json($tiposCuentaService -> registrar($request));
     }
 }
 

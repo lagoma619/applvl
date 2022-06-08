@@ -7,13 +7,13 @@ use App\Models\Cuenta;
 
 class CuentaRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $cuentas = Cuenta::all();
         return $cuentas;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $cuentas = Cuenta::where("cod_persona", "=", $request -> cod_persona) 
         -> get();
@@ -21,7 +21,7 @@ class CuentaRepository {
         return $cuentas;
     }
 
-    public function getFindByCodeAndPassword(Request $request) {
+    public function buscarPorCodigoYContrasena(Request $request) {
         
         $cuentas = Cuenta::where([
             ["cod_persona", "=", $request -> cod_persona],
@@ -33,7 +33,7 @@ class CuentaRepository {
     }
 
 
-    public function save(Cuenta $cuenta) {
+    public function registrar(Cuenta $cuenta) {
 
         $cuenta -> save(); 
         return "Registro exitoso";

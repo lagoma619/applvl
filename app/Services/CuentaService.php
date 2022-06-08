@@ -5,35 +5,38 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\CuentaRepository;
 use App\Models\Cuenta;
+use App\Utilidades\Constantes;
+use App\Utilidades\DatosRespuesta;
+use App\Utilidades\Utilidades;
 
 class CuentaService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $cuenta = new CuentaRepository();
-        return $cuenta -> getAll();
+        return $cuenta -> buscarTodo();
     
     }
 
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $cuenta = new CuentaRepository();
-        return $cuenta -> getFindById($request);
+        return $cuenta -> buscarPorCodigo($request);
     }
 
 
-    public function getFindByCodeAndPassword(Request $request) {
+    public function buscarPorCodigoYContrasena(Request $request) {
         
         if (is_null($request -> contrasena) || empty($request -> contrasena)) {
-            return "Debe ingresar una contraseña";
+            $mensaje =  "Debe ingresar una contraseña";
 
         } else if (is_null($request -> cod_persona) || empty($request -> cod_persona)) {
-            return "Debe ingresar su número de identificación";
+            $mensaje = "Debe ingresar su número de identificación";
 
         } else {
             $cuentaRepository = new CuentaRepository();
-            return $cuentaRepository -> getFindByCodeAndPassword($request);
+            return $cuentaRepository -> buscarPorCodigoYContrasena($request);
 
             //echo "cuentas->contrasena " + $cuentaRepository;
             
@@ -44,26 +47,37 @@ class CuentaService {
             //return $cuentaRepository;
             //}
         }
+
+        $utilidades = new Utilidades();
+        $datosRespuesta = $utilidades -> datosRespuestaValidation("Validacion de datos", $mensaje);
+        
+        return $datosRespuesta;
+
     }
 
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $cuenta = new Cuenta();
         $cuenta -> cod_cuenta = $request -> cod_cuenta;
         $cuenta -> contrasena = $request -> contrasena;
-        $cuenta -> estado = "Activo";
+        $cuenta -> estado = Constantes::HABILITADO;
         $cuenta -> notas = $request -> notas;
         $cuenta -> cod_persona = $request -> cod_persona;
         $cuenta -> cod_tipos_cuenta = $request -> cod_tipos_cuenta;
+        $cuenta -> cod_cliente = $request -> cod_cliente;
         
         $mensaje = $this -> validateData($cuenta);
+        
+        $utilidades = new Utilidades();
 
         if (empty($mensaje)) {
             $cuentaRepository = new CuentaRepository();
-            return $cuentaRepository -> save($cuenta);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $cuentaRepository -> registrar($cuenta));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
     
@@ -72,6 +86,8 @@ class CuentaService {
 
         if (is_null($cuenta -> contrasena) || empty($cuenta -> contrasena)) {
             return "Debe ingresar una contraseña";
+        } else if (is_null($cuenta -> notas) || empty($cuenta -> notas)) {
+            return "Debe ingresar una nota";
         }
 
         return "";

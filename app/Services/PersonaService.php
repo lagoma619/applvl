@@ -5,23 +5,24 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\PersonaRepository;
 use App\Models\Persona;
+use App\Utilidades\Utilidades;
 
 class PersonaService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $persona = new PersonaRepository();
-        return $persona -> getAll();
+        return $persona -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $persona = new PersonaRepository();
-        return $persona -> getFindById($request);
+        return $persona -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $persona = new Persona();
         $persona -> cod_persona = $request -> cod_persona;
@@ -36,12 +37,16 @@ class PersonaService {
         
 
         $mensaje = $this -> validateData($persona);
+        
+        $utilidades = new Utilidades();
 
         if (empty($mensaje)) {
             $personaRepository = new PersonaRepository();
-            return $personaRepository -> save($persona);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $personaRepository -> registrar($persona));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

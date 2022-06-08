@@ -5,23 +5,25 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\SedeRepository;
 use App\Models\Sede;
+use App\Utilidades\Constantes;
+use App\Utilidades\Utilidades;
 
 class SedeService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $sede = new SedeRepository();
-        return $sede -> getAll();
+        return $sede -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $sede = new SedeRepository();
-        return $sede -> getFindById($request);
+        return $sede -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $sede = new Sede();
         $sede -> cod_sede = $request -> cod_sede;
@@ -30,16 +32,20 @@ class SedeService {
         $sede -> numero_telefono = $request -> numero_telefono;
         $sede -> nombre_contacto = $request -> nombre_contacto;
         $sede -> origen_destino_recurrente = $request -> origen_destino_recurrente;
-        $sede -> estado = $request -> estado;
+        $sede -> estado = Constantes::HABILITADO;
         $sede -> cod_cliente = $request -> cod_cliente;
      
         $mensaje = $this -> validateData($sede);
 
+        $utilidades = new Utilidades();
+
         if (empty($mensaje)) {
             $sedeRepository = new SedeRepository();
-            return $sedeRepository -> save($sede);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $sedeRepository -> registrar($sede));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

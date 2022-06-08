@@ -10,20 +10,20 @@ use App\Models\Sede;
 
 class SedeController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $sedeService = new SedeService();
-        return $sedeService -> getAll();
+        return $sedeService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $sedeService = new SedeService();
-        return $sedeService -> getFindById($request);
+        return $sedeService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $sedeService = new SedeService();
-        return response() -> json($sedeService -> save($request));
+        return response() -> json($sedeService -> registrar($request));
     }
 }

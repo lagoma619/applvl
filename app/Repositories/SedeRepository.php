@@ -7,13 +7,13 @@ use App\Models\Sede;
 
 class SedeRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $sedes = Sede::all();
         return $sedes;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $sedes = Sede::where("cod_sede", "=", $request->cod_sede) 
         -> get();
@@ -21,7 +21,7 @@ class SedeRepository {
         return $sedes;
     }
 
-    public function save(Sede $sede) {
+    public function registrar(Sede $sede) {
 
         $sede -> save(); 
         return "Registro exitoso";

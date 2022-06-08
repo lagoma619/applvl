@@ -5,23 +5,24 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\TiposVehiculoRepository;
 use App\Models\TiposVehiculo;
+use App\Utilidades\Utilidades;
 
 class TiposVehiculoService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $tiposVehiculo = new TiposVehiculoRepository();
-        return $tiposVehiculo -> getAll();
+        return $tiposVehiculo -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $tiposVehiculo = new TiposVehiculoRepository();
-        return $tiposVehiculo -> getFindById($request);
+        return $tiposVehiculo -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $tiposVehiculo = new TiposVehiculo();
         $tiposVehiculo -> cod_tipos_vehiculo = $request -> cod_tipos_vehiculo;
@@ -30,11 +31,15 @@ class TiposVehiculoService {
         
         $mensaje = $this -> validateData($tiposVehiculo);
 
+        $utilidades = new Utilidades();
+
         if (empty($mensaje)) {
             $tiposVehiculoRepository = new TiposVehiculoRepository();
-            return $tiposVehiculoRepository -> save($tiposVehiculo);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $tiposVehiculoRepository -> registrar($tiposVehiculo));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

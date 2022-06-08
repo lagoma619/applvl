@@ -10,20 +10,26 @@ use App\Models\Cliente;
 
 class ClienteController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $clienteService = new ClienteService();
-        return $clienteService -> getAll();
+        return $clienteService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $clienteService = new ClienteService();
-        return $clienteService -> getFindById($request);
+        return $clienteService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function buscarPorNombre(Request $request) {
+
         $clienteService = new ClienteService();
-        return response() -> json($clienteService -> save($request));
+        return $clienteService -> buscarPorNombre($request);
+    }
+
+    public function registrar(Request $request) {
+        $clienteService = new ClienteService();
+        return response() -> json($clienteService -> registrar($request));
     }
 }

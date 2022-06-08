@@ -5,23 +5,25 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\AreaRepository;
 use App\Models\Area;
+use App\Utilidades\Constantes;
+use App\Utilidades\Utilidades;
 
 class AreaService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $area = new AreaRepository();
-        return $area -> getAll();
+        return $area -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $area = new AreaRepository();
-        return $area -> getFindById($request);
+        return $area -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $area = new Area();
         $area -> cod_area = $request -> cod_area;
@@ -30,16 +32,20 @@ class AreaService {
         $area -> numero_telefono = $request -> numero_telefono;
         $area -> nombre_contacto = $request -> nombre_contacto;
         $area -> origen_destino_recurrente = $request -> origen_destino_recurrente;
-        $area -> estado = $request -> estado;
+        $area -> estado = Constantes::HABILITADO;
         $area -> cod_sede = $request -> cod_sede;
         
         $mensaje = $this -> validateData($area);
+        
+        $utilidades = new Utilidades();
 
         if (empty($mensaje)) {
             $areaRepository = new AreaRepository();
-            return $areaRepository -> save($area);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $areaRepository -> registrar($area));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

@@ -5,23 +5,25 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\DomicilioRepository;
 use App\Models\Domicilio;
+use App\Utilidades\Constantes;
+use App\Utilidades\Utilidades;
 
 class DomicilioService {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $domicilio = new DomicilioRepository();
-        return $domicilio -> getAll();
+        return $domicilio -> buscarTodo();
     
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $domicilio = new DomicilioRepository();
-        return $domicilio -> getFindById($request);
+        return $domicilio -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
 
         $domicilio = new Domicilio();
         $domicilio -> cod_domicilio = $request -> cod_domicilio;
@@ -30,7 +32,7 @@ class DomicilioService {
         $domicilio -> destino = $request -> destino;
         $domicilio -> descripcion = $request -> descripcion;
         $domicilio -> fecha_inicio = $request -> fecha_inicio;
-        $domicilio -> estado = $request -> estado;
+        $domicilio -> estado = Constantes::HABILITADO;
         $domicilio -> fecha_fin = $request -> fecha_fin;
         $domicilio -> notas = $request -> notas;
         $domicilio -> entrega_efectivo = $request -> entrega_efectivo;
@@ -39,12 +41,16 @@ class DomicilioService {
         $domicilio -> cod_tipo_servicio = $request -> cod_tipo_servicio;
 
         $mensaje = $this -> validateData($domicilio);
+        
+        $utilidades = new Utilidades();
 
         if (empty($mensaje)) {
             $domicilioRepository = new DomicilioRepository();
-            return $domicilioRepository -> save($domicilio);
+            
+            return $utilidades -> datosRespuestaValidation("Registro de datos", $domicilioRepository -> registrar($domicilio));
+            
         } else {
-            return $mensaje;
+            return $utilidades -> datosRespuestaValidation("Validación de datos", $mensaje);
         }
     }
 

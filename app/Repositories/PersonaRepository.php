@@ -7,13 +7,13 @@ use App\Models\Persona;
 
 class PersonaRepository {
 
-    public function getAll() {
+    public function buscarTodo() {
 
         $personas = Persona::all();
         return $personas;   
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
         
         $personas = Persona::where("cod_persona", "=", $request->cod_persona) 
         -> get();
@@ -21,7 +21,7 @@ class PersonaRepository {
         return $personas;
     }
 
-    public function save(Persona $persona) {
+    public function registrar(Persona $persona) {
 
         $persona -> save(); 
         return "Registro exitoso";

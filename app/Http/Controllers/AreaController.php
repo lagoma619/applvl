@@ -10,20 +10,20 @@ use App\Models\Area;
 
 class AreaController {
 
-    public function getAll() {
+    public function buscarTodo() {
         
         $areaService = new AreaService();
-        return $areaService -> getAll();
+        return $areaService -> buscarTodo();
     }
 
-    public function getFindById(Request $request) {
+    public function buscarPorCodigo(Request $request) {
 
         $areaService = new AreaService();
-        return $areaService -> getFindById($request);
+        return $areaService -> buscarPorCodigo($request);
     }
 
-    public function save(Request $request) {
+    public function registrar(Request $request) {
         $areaService = new AreaService();
-        return response() -> json($areaService -> save($request));
+        return response() -> json($areaService -> registrar($request));
     }
 }
