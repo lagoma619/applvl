@@ -5,8 +5,8 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\DomicilioRepository;
 use App\Models\Domicilio;
-use App\Utilidades\Constantes;
-use App\Utilidades\Utilidades;
+use App\Utilities\Constantes;
+use App\Utilities\Utilidades;
 
 class DomicilioService {
 

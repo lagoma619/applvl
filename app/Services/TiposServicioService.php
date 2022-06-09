@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\TiposServicioRepository;
 use App\Models\TiposServicio;
-use App\Utilidades\Utilidades;
+use App\Utilities\Utilidades;
 
 class TiposServicioService {
 

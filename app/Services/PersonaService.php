@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\PersonaRepository;
 use App\Models\Persona;
-use App\Utilidades\Utilidades;
+use App\Utilities\Utilidades;
 
 class PersonaService {
 

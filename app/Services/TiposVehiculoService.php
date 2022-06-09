@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\TiposVehiculoRepository;
 use App\Models\TiposVehiculo;
-use App\Utilidades\Utilidades;
+use App\Utilities\Utilidades;
 
 class TiposVehiculoService {
 

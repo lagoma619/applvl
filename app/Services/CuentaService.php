@@ -5,11 +5,15 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\CuentaRepository;
 use App\Models\Cuenta;
-use App\Utilidades\Constantes;
-use App\Utilidades\DatosRespuesta;
-use App\Utilidades\Utilidades;
+use App\Utilities\Constantes;
+use App\Utilities\DatosRespuesta;
+use App\Utilities\Utilidades;
 
 class CuentaService {
+
+    const HABILITADO = "Habilitado";
+    const DESHABILITADO = "Deshabilitado";
+    const REGLA_CONTRASENA = "//^[A-Za-z0-9_-]{6,10}$//";
 
     public function buscarTodo() {
 
@@ -57,7 +61,7 @@ class CuentaService {
 
 
     public function registrar(Request $request) {
-
+        
         $cuenta = new Cuenta();
         $cuenta -> cod_cuenta = $request -> cod_cuenta;
         $cuenta -> contrasena = $request -> contrasena;
@@ -86,6 +90,12 @@ class CuentaService {
 
         if (is_null($cuenta -> contrasena) || empty($cuenta -> contrasena)) {
             return "Debe ingresar una contraseña";
+        } else if (!(preg_match(Constantes::REGLA_CONTRASENA_LETRAS_1, $cuenta -> contrasena)
+            && preg_match(Constantes::REGLA_CONTRASENA_LETRAS_2, $cuenta -> contrasena)
+            && preg_match(Constantes::REGLA_CONTRASENA_NUMEROS, $cuenta -> contrasena))) {
+            return "La contraseña debe tener letras y números";
+        } else if (!preg_match(Constantes::REGLA_CONTRASENA_LONGITUD, $cuenta -> contrasena)) {
+            return "La contraseña debe tener mínimo seis caracteres";
         } else if (is_null($cuenta -> notas) || empty($cuenta -> notas)) {
             return "Debe ingresar una nota";
         }

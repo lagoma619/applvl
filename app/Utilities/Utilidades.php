@@ -1,6 +1,8 @@
 <?php 
 
-namespace App\Utilidades;
+namespace App\Utilities;
+
+use App\Utilities\DatosRespuesta;
 
 class Utilidades {
 
