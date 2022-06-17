@@ -11,15 +11,19 @@ class PersonaService {
 
     public function buscarTodo() {
 
-        $persona = new PersonaRepository();
-        return $persona -> buscarTodo();
+        $personaRepository = new PersonaRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarTodo", $personaRepository -> buscarTodo());
     
     }
 
     public function buscarPorCodigo(Request $request) {
         
-        $persona = new PersonaRepository();
-        return $persona -> buscarPorCodigo($request);
+        $personaRepository = new PersonaRepository();
+        $utilidades = new Utilidades();
+        
+        return $utilidades -> datosRespuestaValidation("buscarPorCodigo", $personaRepository -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

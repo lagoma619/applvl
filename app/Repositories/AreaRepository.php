@@ -23,8 +23,8 @@ class AreaRepository {
 
     public function registrar(Area $area) {
 
-        $area -> registrar(); 
-        return "Registro exitoso";
+        $area -> save(); 
+        return $area;
     }
 
 

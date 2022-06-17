@@ -13,16 +13,17 @@ class PersonaController {
     public function buscarTodo() {
         
         $personaService = new PersonaService();
-        return $personaService -> buscarTodo();
+        return response() -> json($personaService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $personaService = new PersonaService();
-        return $personaService -> buscarPorCodigo($request);
+        return response() -> json($personaService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {
+        
         $personaService = new PersonaService();
         return response() -> json($personaService -> registrar($request));
     }

@@ -13,13 +13,13 @@ class TiposCuentaController {
     public function buscarTodo() {
         
         $tiposCuentaService = new TiposCuentaService();
-        return $tiposCuentaService -> buscarTodo();
+        return  response() -> json($tiposCuentaService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $tiposCuentaService = new TiposCuentaService();
-        return $tiposCuentaService -> buscarPorCodigo($request);
+        return response() -> json($tiposCuentaService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

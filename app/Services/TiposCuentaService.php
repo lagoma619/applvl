@@ -11,27 +11,33 @@ class TiposCuentaService {
 
     public function buscarTodo() {
 
-        $tiposCuenta = new TiposCuentaRepository();
-        return $tiposCuenta -> buscarTodo();
+        $tiposCuentaRepository = new TiposCuentaRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarTodo", $tiposCuentaRepository -> buscarTodo());
     
     }
 
     public function buscarPorCodigo(Request $request) {
         
-        $tiposCuenta = new TiposCuentaRepository();
-        return $tiposCuenta -> buscarPorCodigo($request);
+        $tiposCuentaRepository = new TiposCuentaRepository();
+        $utilidades = new Utilidades();
+        
+        return $utilidades -> datosRespuestaValidation("buscarPorCodigo", $tiposCuentaRepository -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {
 
         $tiposCuenta = new TiposCuenta();
-        $tiposCuenta -> cod_tipos_cuenta = $request -> cod_tipos_cuenta;
+        
         $tiposCuenta -> cod_nombre = $request -> cod_nombre;
         $tiposCuenta -> cod_descripcion = $request -> cod_descripcion;
         
         $mensaje = $this -> validateData($tiposCuenta);
         
         $utilidades = new Utilidades();
+
+        $tiposCuenta -> cod_tipos_cuenta = $utilidades -> generarCodigo();
 
         if (empty($mensaje)) {
             $tiposCuentaRepository = new TiposCuentaRepository();

@@ -13,17 +13,22 @@ class DomicilioController {
     public function buscarTodo() {
         
         $domicilioService = new DomicilioService();
-        return $domicilioService -> buscarTodo();
+        return response() -> json($domicilioService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $domicilioService = new DomicilioService();
-        return $domicilioService -> buscarPorCodigo($request);
+        return response() -> json($domicilioService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {
         $domicilioService = new DomicilioService();
         return response() -> json($domicilioService -> registrar($request));
+    }
+
+    public function actualizar(Request $request) {
+        $domicilioService = new DomicilioService();
+        return response() -> json($domicilioService -> actualizar($request));
     }
 }

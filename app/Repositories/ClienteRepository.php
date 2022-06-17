@@ -32,7 +32,7 @@ class ClienteRepository {
     public function registrar(Cliente $cliente) {
 
         $cliente -> save(); 
-        return "Registro exitoso";
+        return $cliente;
     }
 
 

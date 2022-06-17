@@ -13,13 +13,13 @@ class TiposVehiculoController {
     public function buscarTodo() {
         
         $tiposVehiculoService = new TiposVehiculoService();
-        return $tiposVehiculoService -> buscarTodo();
+        return response() -> json($tiposVehiculoService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $tiposVehiculoService = new TiposVehiculoService();
-        return $tiposVehiculoService -> buscarPorCodigo($request);
+        return response() -> json($tiposVehiculoService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

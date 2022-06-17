@@ -36,7 +36,8 @@ class CuentaRepository {
     public function registrar(Cuenta $cuenta) {
 
         $cuenta -> save(); 
-        return "Registro exitoso";
+
+        return $cuenta;
     }
 
 

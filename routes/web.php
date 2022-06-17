@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TiposCuentaController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\SedeController;
+use App\Http\Controllers\DomicilioController;
+use App\Http\Controllers\TiposServicioController;
+use App\Http\Controllers\TiposVehiculoController;
 
 /*
 |--------------------------------------------------------------------------

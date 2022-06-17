@@ -11,27 +11,32 @@ class TiposVehiculoService {
 
     public function buscarTodo() {
 
-        $tiposVehiculo = new TiposVehiculoRepository();
-        return $tiposVehiculo -> buscarTodo();
-    
+        $tiposVehiculoRepository = new TiposVehiculoRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarTodo", $tiposVehiculoRepository -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
         
-        $tiposVehiculo = new TiposVehiculoRepository();
-        return $tiposVehiculo -> buscarPorCodigo($request);
+        $tiposVehiculoRepository = new TiposVehiculoRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarPorCodigo", $tiposVehiculoRepository -> buscarPorCodigo($request));
+        
     }
 
     public function registrar(Request $request) {
 
         $tiposVehiculo = new TiposVehiculo();
-        $tiposVehiculo -> cod_tipos_vehiculo = $request -> cod_tipos_vehiculo;
-        $tiposVehiculo -> cod_nombre = $request -> cod_nombre;
-        $tiposVehiculo -> cod_descripcion = $request -> cod_descripcion;
+        $tiposVehiculo -> nombre = $request -> nombre;
+        $tiposVehiculo -> descripcion = $request -> descripcion;
         
         $mensaje = $this -> validateData($tiposVehiculo);
 
         $utilidades = new Utilidades();
+
+        $tiposVehiculo -> cod_tipo_vehiculo = $utilidades -> generarCodigo();
 
         if (empty($mensaje)) {
             $tiposVehiculoRepository = new TiposVehiculoRepository();
@@ -45,7 +50,7 @@ class TiposVehiculoService {
 
     public function validateData(TiposVehiculo $tiposVehiculo) {
 
-        if (is_null($tiposVehiculo -> cod_nombre) || empty($tiposVehiculo -> cod_nombre)) {
+        if (is_null($tiposVehiculo -> nombre) || empty($tiposVehiculo -> nombre)) {
             return "Debe ingresar el nombre del tipo de vehiculo";
         }
 

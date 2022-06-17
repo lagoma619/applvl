@@ -13,13 +13,13 @@ class AreaController {
     public function buscarTodo() {
         
         $areaService = new AreaService();
-        return $areaService -> buscarTodo();
+        return response() -> json($areaService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $areaService = new AreaService();
-        return $areaService -> buscarPorCodigo($request);
+        return response() -> json($areaService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

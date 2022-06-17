@@ -11,14 +11,12 @@ use App\Utilities\Utilidades;
 
 class CuentaService {
 
-    const HABILITADO = "Habilitado";
-    const DESHABILITADO = "Deshabilitado";
-    const REGLA_CONTRASENA = "//^[A-Za-z0-9_-]{6,10}$//";
-
     public function buscarTodo() {
 
         $cuenta = new CuentaRepository();
-        return $cuenta -> buscarTodo();
+        $utilidades = new Utilidades();
+        
+        return $utilidades -> datosRespuestaValidation("buscarTodo", $cuenta -> buscarTodo());
     
     }
 
@@ -26,7 +24,8 @@ class CuentaService {
     public function buscarPorCodigo(Request $request) {
         
         $cuenta = new CuentaRepository();
-        return $cuenta -> buscarPorCodigo($request);
+        $utilidades = new Utilidades();
+        return $utilidades -> datosRespuestaValidation("buscarPorCodigo", $cuenta -> buscarPorCodigo($request));
     }
 
 
@@ -53,17 +52,15 @@ class CuentaService {
         }
 
         $utilidades = new Utilidades();
-        $datosRespuesta = $utilidades -> datosRespuestaValidation("Validacion de datos", $mensaje);
+        return $utilidades -> datosRespuestaValidation("Validacion de datos", $mensaje);
         
-        return $datosRespuesta;
-
     }
 
 
     public function registrar(Request $request) {
         
         $cuenta = new Cuenta();
-        $cuenta -> cod_cuenta = $request -> cod_cuenta;
+        
         $cuenta -> contrasena = $request -> contrasena;
         $cuenta -> estado = Constantes::HABILITADO;
         $cuenta -> notas = $request -> notas;
@@ -75,6 +72,8 @@ class CuentaService {
         
         $utilidades = new Utilidades();
 
+        $cuenta -> cod_cuenta = $utilidades -> generarCodigo();
+        
         if (empty($mensaje)) {
             $cuentaRepository = new CuentaRepository();
             
@@ -85,7 +84,9 @@ class CuentaService {
         }
     }
     
-
+    /*
+        Valida los campos para la creación de una cuenta de usuario
+    */
     public function validateData(Cuenta $cuenta) {
 
         if (is_null($cuenta -> contrasena) || empty($cuenta -> contrasena)) {

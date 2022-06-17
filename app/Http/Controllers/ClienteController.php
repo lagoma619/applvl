@@ -13,19 +13,19 @@ class ClienteController {
     public function buscarTodo() {
         
         $clienteService = new ClienteService();
-        return $clienteService -> buscarTodo();
+        return response() -> json($clienteService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $clienteService = new ClienteService();
-        return $clienteService -> buscarPorCodigo($request);
+        return response() -> json($clienteService -> buscarPorCodigo($request));
     }
 
     public function buscarPorNombre(Request $request) {
 
         $clienteService = new ClienteService();
-        return $clienteService -> buscarPorNombre($request);
+        return response() -> json($clienteService -> buscarPorNombre($request));
     }
 
     public function registrar(Request $request) {

@@ -15,7 +15,7 @@ class TiposVehiculoRepository {
 
     public function buscarPorCodigo(Request $request) {
         
-        $tiposVehiculos = TiposVehiculo::where("cod_tipos_vehiculo", "=", $request->cod_tipos_vehiculo) 
+        $tiposVehiculos = TiposVehiculo::where("cod_tipo_vehiculo", "=", $request->cod_tipo_vehiculo) 
         -> get();
 
         return $tiposVehiculos;
@@ -24,7 +24,7 @@ class TiposVehiculoRepository {
     public function registrar(TiposVehiculo $tiposVehiculo) {
 
         $tiposVehiculo -> save(); 
-        return "Registro exitoso";
+        return $tiposVehiculo;
     }
 
 

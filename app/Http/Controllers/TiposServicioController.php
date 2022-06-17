@@ -13,13 +13,13 @@ class TiposServicioController {
     public function buscarTodo() {
         
         $tiposServicioService = new TiposServicioService();
-        return $tiposServicioService -> buscarTodo();
+        return response() -> json($tiposServicioService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $tiposServicioService = new TiposServicioService();
-        return $tiposServicioService -> buscarPorCodigo($request);
+        return response() -> json($tiposServicioService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

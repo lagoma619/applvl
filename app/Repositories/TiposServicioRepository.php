@@ -15,7 +15,7 @@ class TiposServicioRepository {
 
     public function buscarPorCodigo(Request $request) {
         
-        $tiposServicios = TiposServicio::where("cod_tipos_servicio", "=", $request->cod_tipos_servicio) 
+        $tiposServicios = TiposServicio::where("cod_tipo_servicio", "=", $request->cod_tipo_servicio) 
         -> get();
 
         return $tiposServicios;
@@ -24,7 +24,7 @@ class TiposServicioRepository {
     public function registrar(TiposServicio $tiposServicio) {
 
         $tiposServicio -> save(); 
-        return "Registro exitoso";
+        return $tiposServicio;
     }
 
 

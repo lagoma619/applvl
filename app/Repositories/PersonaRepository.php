@@ -24,7 +24,7 @@ class PersonaRepository {
     public function registrar(Persona $persona) {
 
         $persona -> save(); 
-        return "Registro exitoso";
+        return $persona;
     }
 
 

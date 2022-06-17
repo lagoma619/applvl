@@ -24,7 +24,7 @@ class TiposCuentaRepository {
     public function registrar(TiposCuenta $tiposCuenta) {
 
         $tiposCuenta -> save(); 
-        return "Registro exitoso";
+        return $tiposCuenta;
     }
 
 

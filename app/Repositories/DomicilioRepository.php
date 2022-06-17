@@ -24,7 +24,13 @@ class DomicilioRepository {
     public function registrar(Domicilio $domicilio) {
 
         $domicilio -> save(); 
-        return "Registro exitoso";
+        return $domicilio;
+    }
+
+    public function actualizar(Domicilio $domicilio) {
+
+        $domicilio -> save(); 
+        return $domicilio;
     }
 
 

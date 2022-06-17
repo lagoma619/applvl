@@ -11,15 +11,13 @@ use App\Models\Sede;
 class SedeController {
 
     public function buscarTodo() {
-        
         $sedeService = new SedeService();
-        return $sedeService -> buscarTodo();
+        return response() -> json($sedeService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
-
         $sedeService = new SedeService();
-        return $sedeService -> buscarPorCodigo($request);
+        return response() -> json($sedeService -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {

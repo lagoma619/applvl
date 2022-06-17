@@ -24,7 +24,7 @@ class SedeRepository {
     public function registrar(Sede $sede) {
 
         $sede -> save(); 
-        return "Registro exitoso";
+        return $sede;
     }
 
 

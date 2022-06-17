@@ -11,27 +11,32 @@ class TiposServicioService {
 
     public function buscarTodo() {
 
-        $tiposServicio = new TiposServicioRepository();
-        return $tiposServicio -> buscarTodo();
+        $tiposServicioRepository = new TiposServicioRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarTodo", $tiposServicioRepository -> buscarTodo());
     
     }
 
     public function buscarPorCodigo(Request $request) {
         
-        $tiposServicio = new TiposServicioRepository();
-        return $tiposServicio -> buscarPorCodigo($request);
+        $tiposServicioRepository = new TiposServicioRepository();
+        $utilidades = new Utilidades();
+
+        return $utilidades -> datosRespuestaValidation("buscarPorCodigo", $tiposServicioRepository -> buscarPorCodigo($request));
     }
 
     public function registrar(Request $request) {
 
         $tiposServicio = new TiposServicio();
-        $tiposServicio -> cod_tipos_servicio = $request -> cod_tipos_servicio;
-        $tiposServicio -> cod_nombre = $request -> cod_nombre;
-        $tiposServicio -> cod_descripcion = $request -> cod_descripcion;
+        $tiposServicio -> nombre = $request -> nombre;
+        $tiposServicio -> descripcion = $request -> descripcion;
         
         $mensaje = $this -> validateData($tiposServicio);
 
         $utilidades = new Utilidades();
+
+        $tiposServicio -> cod_tipo_servicio = $utilidades -> generarCodigo();
 
         if (empty($mensaje)) {
             $tiposServicioRepository = new TiposServicioRepository();
@@ -45,7 +50,7 @@ class TiposServicioService {
 
     public function validateData(TiposServicio $tiposServicio) {
 
-        if (is_null($tiposServicio -> cod_nombre) || empty($tiposServicio -> cod_nombre)) {
+        if (is_null($tiposServicio -> nombre) || empty($tiposServicio -> nombre)) {
             return "Debe ingresar el nombre del tipo de servicio";
         }
 

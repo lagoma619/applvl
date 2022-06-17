@@ -13,21 +13,20 @@ class CuentaController {
     public function buscarTodo() {
         
         $cuentaService = new CuentaService();
-        return $cuentaService -> buscarTodo();
+        return response() -> json($cuentaService -> buscarTodo());
     }
 
     public function buscarPorCodigo(Request $request) {
 
         $cuentaService = new CuentaService();
-        return $cuentaService -> buscarPorCodigo($request);
+        return response() -> json($cuentaService -> buscarPorCodigo($request));
     }
 
     public function buscarPorCodigoYContrasena(Request $request) {
         
         $cuentaService = new CuentaService();
         
-        return response() -> json([
-            'data' => $cuentaService -> buscarPorCodigoYContrasena($request)]);
+        return response() -> json($cuentaService -> buscarPorCodigoYContrasena($request));
 
     }
 
