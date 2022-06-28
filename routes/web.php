@@ -10,7 +10,6 @@ use App\Http\Controllers\SedeController;
 use App\Http\Controllers\DomicilioController;
 use App\Http\Controllers\TiposServicioController;
 use App\Http\Controllers\TiposVehiculoController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
