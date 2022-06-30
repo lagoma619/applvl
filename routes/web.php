@@ -22,12 +22,14 @@ use App\Http\Controllers\TiposVehiculoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('cuenta.loguear');
 });
+
+Route::get('cuenta.loguear', [CuentaController::class, 'buscarPorCodigoYContrasenaa'])->name('login');
 
 Route::get('cuenta/consultar-todo', [CuentaController::class, 'buscarTodo']);
 Route::get('cuenta/consultar-por-id', [CuentaController::class, 'buscarPorCodigo']);
-Route::get('cuenta/loguear', [CuentaController::class, 'buscarPorCodigoYContrasena']);
+//Route::get('/cuenta/loguear', [CuentaController::class, 'buscarPorCodigoYContrasena']);
 Route::get('cuenta/registrar', [CuentaController::class, 'registrar']);
 
 Route::get('persona/consultar-todo', [PersonaController::class, 'buscarTodo']);
